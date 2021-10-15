@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum PrefKey { loggedIn, email }
+enum PrefKey { loggedIn, email, lang }
 
 class SharedPrefController {
   // Singleton Design Pattern
@@ -39,4 +39,12 @@ class SharedPrefController {
     await removeKey(PrefKey.email.toString());
     return await _sharedPreferences.setBool(PrefKey.loggedIn.toString(), false);
   }
+
+  Future<bool> changeLangauge({required String langauge}) async {
+    return await _sharedPreferences.setString(
+        PrefKey.lang.toString(), langauge);
+  }
+
+  String get langauge =>
+      _sharedPreferences.getString(PrefKey.lang.toString()) ?? 'en';
 }

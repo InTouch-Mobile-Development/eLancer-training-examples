@@ -1,6 +1,8 @@
 import 'package:e_lancer/prefs/shared_pref_controller.dart';
+import 'package:e_lancer/providers/lang_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -32,6 +34,13 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Provider.of<LanguageProvider>(context, listen: false)
+              .changeLangauge();
+        },
+        child: const Icon(Icons.language),
+      ),
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.login),
         centerTitle: true,

@@ -1,10 +1,12 @@
 import 'package:e_lancer/prefs/shared_pref_controller.dart';
+import 'package:e_lancer/providers/lang_provider.dart';
 import 'package:e_lancer/screens/launch_screen.dart';
 import 'package:e_lancer/screens/login_screen.dart';
 import 'package:e_lancer/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +18,20 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<LanguageProvider>(
+      create: (context) => LanguageProvider(),
+      child: const MyMaterialApp(),
+    );
+  }
+}
+
+class MyMaterialApp extends StatelessWidget {
+  const MyMaterialApp({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +49,7 @@ class MyApp extends StatelessWidget {
       // localizationsDelegates: AppLocalizations.localizationsDelegates,
       // supportedLocales: AppLocalizations.supportedLocales,
 
-      locale: const Locale('ar'),
+      locale: Locale(Provider.of<LanguageProvider>(context).langauge),
       initialRoute: "/launch_screen",
       routes: {
         "/launch_screen": (context) => LaunchScreen(),
